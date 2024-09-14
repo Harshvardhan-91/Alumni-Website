@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+      "module": "CommonJS",
+      "target": "ESNext",
+      "strict": true
+    },
+    "include": ["src/**/*.ts", "src/**/*.tsx", "src/components/navbar.jsx"],
+    "exclude": ["node_modules"]
+  }
+  
