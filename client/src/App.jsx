@@ -1,27 +1,23 @@
 import React from 'react'
-import { NavbarComponent } from './components/navbar'
-import HeroSection from './components/herosection'
-import AlumniSlider from './components/alumnislider'
-import Footer from './components/footer'
-import UpcomingEvents from './components/upcomingevents'
-import Placement from './components/placement';
-import DeanMessage from '@/components/dean'
-import AlumniEngagement from './components/engagement'
+import Home from './Pages/Home'
+import Events from './Pages/Events'
+import { Routes , Route } from 'react-router-dom'
+import AlumniDirectory from './Pages/AlumniDirectory'
+import Posts from './Pages/Posts'
+import Scholarship from './Pages/Scholarships';
 
 const App = () => {
   return (
-  <>
-  <NavbarComponent/>
-    <div className='w-[90vw] m-auto'>
-      <HeroSection/>
-      <AlumniSlider/>
-      <UpcomingEvents/>
-      <Placement/>
-      <DeanMessage/>
-      <AlumniEngagement/>
+    <div>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/events" element={<Events />} />
+        <Route path="/alumni-directory" element={<AlumniDirectory />} />
+        <Route path="/posts" element={<Posts />} />
+        <Route path="/scholarhips" element={<Scholarship />} />
+      </Routes>
     </div>
-    <Footer/>
-    </>
+
   )
 }
 

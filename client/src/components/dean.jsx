@@ -15,8 +15,8 @@ export default function DeanMessage() {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
             <div className="absolute bottom-0 left-0 p-6 text-white">
-              <h2 className="text-2xl font-bold">Dr. Jane Doe</h2>
-              <p className="text-sm opacity-75">Dean of Alumni Relations</p>
+              <h2 className="text-2xl font-bold">Dr. Binod Kumar Kannaujia</h2>
+              <p className="text-sm opacity-75">Director, NIT Jalandhar</p>
             </div>
           </div>
           <CardContent className="md:w-3/5 p-6 md:p-8 bg-gradient-to-br from-primary/5 to-primary/10">
@@ -40,8 +40,8 @@ export default function DeanMessage() {
                   alt="Dr. Jane Doe's signature"
                   className="mt-2 h-12 w-auto"
                 /> */}
-                <p className="mt-2 font-semibold">Dr. Jane Doe</p>
-                <p className="text-sm text-muted-foreground">Dean of Alumni Relations</p>
+                <p className="mt-2 font-semibold">Dr. Binod Kumar Kannaujia</p>
+                <p className="text-sm text-muted-foreground">Director, NIT Jalandhar</p>
               </div>
             </div>
           </CardContent>
