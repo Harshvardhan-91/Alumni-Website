@@ -2,7 +2,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import User from "../model/user.js";
 
-const JWT_SECRET = process.env.JWT_SECRET || "your_jwt_secret";
+const JWT_SECRET = process.env.JWT_SECRET || "myVeryStrongSecretKey123!@#";
 
 /**
  * @desc Register a new user
@@ -33,11 +33,6 @@ export const registerUser = async (req, res) => {
   }
 };
 
-/**
- * @desc Log in a user
- * @route POST /api/auth/login
- * @access Public
- */
 export const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
@@ -64,11 +59,6 @@ export const loginUser = async (req, res) => {
   }
 };
 
-/**
- * @desc Get user profile (protected route)
- * @route GET /api/auth/profile
- * @access Private
- */
 export const getUserProfile = async (req, res) => {
   try {
     // Retrieve user details excluding the password
