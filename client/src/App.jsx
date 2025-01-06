@@ -10,7 +10,9 @@ import Footer from './components/footer';
 import AboutUs from './Pages/AboutUs';
 import Scholarships from './Pages/Scholarships';
 import Login from './Pages/Login';
-
+import AlumniDonationForm from './Pages/Donation';
+import Community from './Pages/Community'
+import { Router } from 'lucide-react'
 const App = () => {
   return (
     <div>
@@ -24,6 +26,8 @@ const App = () => {
         <Route path="aboutus" element={<AboutUs />} />
         <Route path="scholarships" element={<Scholarships />} />
         <Route path='login' element={<Login/>} />
+        <Route path ='community' element={<Community/>} />
+        <Route path='donation' element={<AlumniDonationForm/>} />
       </Routes>
       <Footer/>
     </div>

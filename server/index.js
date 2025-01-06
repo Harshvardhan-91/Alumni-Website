@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import bodyParser from "body-parser";
 import authRoutes from "./route/auth.js";
+import donationRoutes from "./route/donationRoutes.js";
 
 dotenv.config();
 
@@ -22,6 +23,7 @@ mongoose
 
 // Routes
 app.use("/auth", authRoutes);
+app.use('/donation', donationRoutes);
 
 // Start Server
 const PORT = process.env.PORT || 5000;
