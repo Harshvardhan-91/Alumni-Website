@@ -8,7 +8,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
@@ -24,44 +23,235 @@ const AlumniDirectory = () => {
   // Sample alumni data - replace with your actual data
   const alumniData = [
     {
-      id: 1,
-      name: "Rahul Sharma",
-      image: "/api/placeholder/150/150",
-      batch: "2018",
-      department: "Computer Science",
-      degree: "B.Tech",
-      company: "Microsoft",
-      designation: "Senior Software Engineer",
-      location: "Bangalore, India",
-      industry: "Technology",
-      email: "rahul.sharma@example.com",
-      phone: "+91 98765 43210",
-      linkedin: "linkedin.com/in/rahulsharma",
-      achievements: "Led development of Azure cloud services, Patent holder",
+        id: 1,
+        name: "Rahul Sharma",
+        image: "/api/placeholder/150/150",
+        batch: "2018",
+        department: "Computer Science",
+        degree: "B.Tech",
+        company: "Microsoft",
+        designation: "Senior Software Engineer",
+        location: "Bangalore, India",
+        industry: "Technology",
+        email: "rahul.sharma@example.com",
+        phone: "+91 98765 43210",
+        linkedin: "linkedin.com/in/rahulsharma",
+        achievements: "Led development of Azure cloud services, Patent holder",
     },
     {
-      id: 2,
-      name: "Priya Patel",
-      image: "/api/placeholder/150/150",
-      batch: "2019",
-      department: "Electronics",
-      degree: "B.Tech",
-      company: "Intel",
-      designation: "Hardware Engineer",
-      location: "Pune, India",
-      industry: "Semiconductor",
-      email: "priya.patel@example.com",
-      phone: "+91 98765 43211",
-      linkedin: "linkedin.com/in/priyapatel",
-      achievements: "Published research paper on VLSI design",
+        id: 2,
+        name: "Priya Patel",
+        image: "/api/placeholder/150/150",
+        batch: "2019",
+        department: "Electronics",
+        degree: "B.Tech",
+        company: "Intel",
+        designation: "Hardware Engineer",
+        location: "Pune, India",
+        industry: "Semiconductor",
+        email: "priya.patel@example.com",
+        phone: "+91 98765 43211",
+        linkedin: "linkedin.com/in/priyapatel",
+        achievements: "Published research paper on VLSI design",
     },
-    // Add more alumni profiles here
-  ];
+    {
+        id: 3,
+        name: "Amit Verma",
+        image: "/api/placeholder/150/150",
+        batch: "2020",
+        department: "Mechanical Engineering",
+        degree: "B.Tech",
+        company: "Tata Motors",
+        designation: "Design Engineer",
+        location: "Mumbai, India",
+        industry: "Automobile",
+        email: "amit.verma@example.com",
+        phone: "+91 98765 43212",
+        linkedin: "linkedin.com/in/amitverma",
+        achievements: "Designed the next-gen EV model, Received Best Innovator Award",
+    },
+    {
+        id: 4,
+        name: "Sneha Reddy",
+        image: "/api/placeholder/150/150",
+        batch: "2017",
+        department: "Civil Engineering",
+        degree: "B.Tech",
+        company: "L&T Construction",
+        designation: "Project Manager",
+        location: "Hyderabad, India",
+        industry: "Construction",
+        email: "sneha.reddy@example.com",
+        phone: "+91 98765 43213",
+        linkedin: "linkedin.com/in/snehareddy",
+        achievements: "Managed metro rail construction projects, PMI Certified",
+    },
+    {
+        id: 5,
+        name: "Rohit Mehta",
+        image: "/api/placeholder/150/150",
+        batch: "2016",
+        department: "Electrical Engineering",
+        degree: "M.Tech",
+        company: "Siemens",
+        designation: "R&D Specialist",
+        location: "Noida, India",
+        industry: "Energy",
+        email: "rohit.mehta@example.com",
+        phone: "+91 98765 43214",
+        linkedin: "linkedin.com/in/rohitmehta",
+        achievements: "Developed energy-efficient systems, Author of a book on Smart Grids",
+    },
+    {
+        id: 6,
+        name: "Anjali Singh",
+        image: "/api/placeholder/150/150",
+        batch: "2021",
+        department: "Information Technology",
+        degree: "B.Tech",
+        company: "Google",
+        designation: "UI/UX Designer",
+        location: "Mountain View, USA",
+        industry: "Technology",
+        email: "anjali.singh@example.com",
+        phone: "+1 650 123 4567",
+        linkedin: "linkedin.com/in/anjalisingh",
+        achievements: "Redesigned Google Workspace UI, Speaker at DesignCon",
+    },
+    {
+        id: 7,
+        name: "Vikram Jain",
+        image: "/api/placeholder/150/150",
+        batch: "2015",
+        department: "Chemical Engineering",
+        degree: "B.Tech",
+        company: "Reliance Industries",
+        designation: "Process Engineer",
+        location: "Jamnagar, India",
+        industry: "Petrochemical",
+        email: "vikram.jain@example.com",
+        phone: "+91 98765 43215",
+        linkedin: "linkedin.com/in/vikramjain",
+        achievements: "Optimized refining processes, Received Outstanding Engineer Award",
+    },
+    {
+        id: 8,
+        name: "Meera Iyer",
+        image: "/api/placeholder/150/150",
+        batch: "2018",
+        department: "Biotechnology",
+        degree: "M.Sc",
+        company: "Biocon",
+        designation: "Research Scientist",
+        location: "Bangalore, India",
+        industry: "Pharmaceuticals",
+        email: "meera.iyer@example.com",
+        phone: "+91 98765 43216",
+        linkedin: "linkedin.com/in/meeraiyer",
+        achievements: "Contributed to cancer drug development, Co-authored 3 research papers",
+    },
+    {
+      id: 9,
+      name: "Amit Verma",
+      image: "/api/placeholder/150/150",
+      batch: "2020",
+      department: "Mechanical Engineering",
+      degree: "B.Tech",
+      company: "Tesla",
+      designation: "Product Design Engineer",
+      location: "Austin, USA",
+      industry: "Automotive",
+      email: "amit.verma@example.com",
+      phone: "+1 234 567 8901",
+      linkedin: "linkedin.com/in/amitverma",
+      achievements: "Designed next-gen electric vehicle components",
+    },
+    {
+      id: 10,
+      name: "Sneha Kapoor",
+      image: "/api/placeholder/150/150",
+      batch: "2017",
+      department: "Civil Engineering",
+      degree: "B.Tech",
+      company: "AECOM",
+      designation: "Project Manager",
+      location: "New York, USA",
+      industry: "Construction",
+      email: "sneha.kapoor@example.com",
+      phone: "+1 345 678 9012",
+      linkedin: "linkedin.com/in/snehakapoor",
+      achievements: "Managed multi-million dollar infrastructure projects",
+    },
+    {
+      id: 12,
+      name: "Deepak Rao",
+      image: "/api/placeholder/150/150",
+      batch: "2021",
+      department: "Information Technology",
+      degree: "M.Tech",
+      company: "Google",
+      designation: "Data Scientist",
+      location: "Mountain View, USA",
+      industry: "Technology",
+      email: "deepak.rao@example.com",
+      phone: "+1 456 789 0123",
+      linkedin: "linkedin.com/in/deepakrao",
+      achievements: "Developed machine learning algorithms for search optimization",
+    },
+    {
+      id: 13,
+      name: "Anjali Mehta",
+      image: "/api/placeholder/150/150",
+      batch: "2016",
+      department: "Chemical Engineering",
+      degree: "B.Tech",
+      company: "BASF",
+      designation: "Process Engineer",
+      location: "Frankfurt, Germany",
+      industry: "Chemicals",
+      email: "anjali.mehta@example.com",
+      phone: "+49 170 1234567",
+      linkedin: "linkedin.com/in/anjalimehta",
+      achievements: "Optimized chemical production processes, Sustainability initiatives lead",
+    },
+    {
+      id: 14,
+      name: "Vikram Singh",
+      image: "/api/placeholder/150/150",
+      batch: "2022",
+      department: "Electrical Engineering",
+      degree: "B.Tech",
+      company: "Siemens",
+      designation: "Electrical Engineer",
+      location: "Berlin, Germany",
+      industry: "Energy",
+      email: "vikram.singh@example.com",
+      phone: "+49 171 6543210",
+      linkedin: "linkedin.com/in/vikramsingh",
+      achievements: "Implemented smart grid technologies, Awarded Employee of the Year",
+    },
+];
 
-  const departments = ["Computer Science", "Electronics", "Mechanical", "Civil", "Chemical"];
-  const batches = ["2024", "2023", "2022", "2021", "2020", "2019", "2018"];
-  const industries = ["Technology", "Semiconductor", "Manufacturing", "Consulting", "Finance"];
-  const locations = ["Bangalore", "Pune", "Delhi", "Mumbai", "International"];
+
+const departments = ["None", "Computer Science", "Electronics", "Mechanical", "Civil", "Chemical", "Biotechnology", "Electrical", "Information Technology"];
+const batches = ["None", "2024", "2023", "2022", "2021", "2020", "2019", "2018", "2017", "2016", "2015"];
+const industries = ["None", "Technology", "Semiconductor", "Manufacturing", "Consulting", "Finance", "Automobile", "Construction", "Energy", "Pharmaceuticals", "Chemicals"];
+const locations = ["None", "Bangalore", "Pune", "Delhi", "Mumbai", "International", "Hyderabad", "Noida", "Chennai", "Kolkata", "Ahmedabad"];
+
+const filteredAlumni = alumniData.filter((alumni) => {
+    const matchesSearchTerm =
+        alumni.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        alumni.company.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        alumni.designation.toLowerCase().includes(searchTerm.toLowerCase());
+
+    const matchesBatch = filters.batch === "None" || filters.batch === "all" || alumni.batch === filters.batch;
+    const matchesDepartment = filters.department === "None" || filters.department === "all" || alumni.department === filters.department;
+    const matchesLocation = filters.location === "None" || filters.location === "all" || alumni.location.includes(filters.location);
+    const matchesIndustry = filters.industry === "None" || filters.industry === "all" || alumni.industry === filters.industry;
+
+    return matchesSearchTerm && matchesBatch && matchesDepartment && matchesLocation && matchesIndustry;
+});
+
 
   return (
     <div className="min-h-screen bg-gray-50 py-8">
@@ -156,7 +346,7 @@ const AlumniDirectory = () => {
 
         {/* Alumni Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {alumniData.map((alumni) => (
+          {filteredAlumni.map((alumni) => (
             <Card key={alumni.id} className="overflow-hidden hover:shadow-lg transition-shadow">
               <CardContent className="p-6">
                 <div className="flex items-start space-x-4">
@@ -217,5 +407,6 @@ const AlumniDirectory = () => {
     </div>
   );
 };
+
 
 export default AlumniDirectory;
