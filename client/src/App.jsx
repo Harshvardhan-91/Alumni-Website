@@ -8,6 +8,7 @@ import Scholarship from './Pages/Scholarships';
 import { NavbarComponent } from './components/navbar'
 import Footer from './components/footer';
 import AboutUs from './Pages/AboutUs';
+import Scholarships from './Pages/Scholarships'
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
         <Route path="/posts" element={<Posts />} />
         <Route path="/scholarhips" element={<Scholarship />} />
         <Route path="aboutus" element={<AboutUs />} />
+        <Route path="scholarships" element={<Scholarships />} />
       </Routes>
       <Footer/>
     </div>
