@@ -64,10 +64,24 @@ const Scholarships = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <div className="bg-gradient-to-r from-blue-800 to-blue-600 text-white">
-        <div className="max-w-7xl mx-auto py-24 px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-5xl font-bold mb-6">Chemical Engineering Scholarships</h1>
-          <p className="text-xl text-blue-100 max-w-3xl mx-auto leading-relaxed">
+      <div className="relative h-[450px]">
+        {/* Background image with overlay */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center"
+          style={{
+            backgroundImage: `url('https://www.venueon16.com/wp-content/uploads/2018/06/Venue-Giving-Back-Program.jpg')`,
+          }}
+        >
+          {/* Dark overlay for better text readability */}
+          <div className="absolute inset-0 bg-black/50"></div>
+        </div>
+        
+        {/* Hero content */}
+        <div className="relative max-w-7xl mx-auto pt-16 pb-32 px-4 sm:px-6 lg:px-8 text-center">
+          <h1 className="text-5xl font-bold mb-6 text-white">
+            Chemical Engineering Scholarships
+          </h1>
+          <p className="text-xl text-gray-100 max-w-3xl mx-auto leading-relaxed">
             Supporting excellence in Chemical Engineering through merit-based and need-based scholarships, 
             making quality education accessible to deserving students.
           </p>
@@ -76,7 +90,7 @@ const Scholarships = () => {
       </div>
 
       {/* Featured Scholarships Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-16">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" style={{ marginTop: '-100px' }}>
         <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
           {featuredScholarships.map((scholarship, index) => (
             <Card key={index} className="bg-white border-none shadow-lg hover:shadow-xl transition-shadow duration-300">
