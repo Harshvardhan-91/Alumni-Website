@@ -39,7 +39,7 @@ export function NavbarComponent() {
     { name: "Scholarships", href: "/scholarships" },
     { name: "Alumni", href: "/alumni" },
     { name: "Posts", href: "/posts" },
-    { name: "About Us", href: "/about" },
+    { name: "About Us", href: "/aboutus" },
   ];
 
   return (

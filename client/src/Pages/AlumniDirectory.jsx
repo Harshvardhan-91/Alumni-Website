@@ -10,4 +10,4 @@ const AlumniDirectory = () => {
   )
 }
 
-export default AlumniDirectory
+export default AlumniDirectory;

@@ -6,7 +6,8 @@ import AlumniDirectory from './Pages/AlumniDirectory'
 import Posts from './Pages/Posts'
 import Scholarship from './Pages/Scholarships';
 import { NavbarComponent } from './components/navbar'
-import Footer from './components/footer'
+import Footer from './components/footer';
+import AboutUs from './Pages/AboutUs';
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
         <Route path="/alumni-directory" element={<AlumniDirectory />} />
         <Route path="/posts" element={<Posts />} />
         <Route path="/scholarhips" element={<Scholarship />} />
+        <Route path="aboutus" element={<AboutUs />} />
       </Routes>
       <Footer/>
     </div>
