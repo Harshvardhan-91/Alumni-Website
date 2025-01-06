@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Menu, X, User } from "lucide-react";
 import logo from "../assets/logo.jpeg";
+import { useNavigate } from 'react-router-dom';
 
 import { Button } from "@/components/ui/button";
 import {
@@ -41,6 +42,7 @@ export function NavbarComponent() {
     { name: "Posts", href: "/posts" },
     { name: "About Us", href: "/aboutus" },
   ];
+  const navigate = useNavigate();
 
   return (
     <nav className="bg-white shadow-md sticky top-0 z-50">
@@ -126,7 +128,7 @@ export function NavbarComponent() {
                 Logout
               </Button>
             ) : (
-              <Button className="w-full mt-2" onClick={toggleLogin}>
+              <Button className="w-full mt-2" onClick={() => navigate('/login')}>
                 Login
               </Button>
             )}
