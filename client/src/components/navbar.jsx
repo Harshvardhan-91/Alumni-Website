@@ -38,7 +38,7 @@ export function NavbarComponent() {
     { name: "Alumni Directory", href: "/alumni-directory" },
     { name: "Events", href: "/events" },
     { name: "Scholarships", href: "/scholarships" },
-    { name: "Alumni", href: "/alumni" },
+    { name: "Give back", href: "/donation" },
     { name: "Posts", href: "/posts" },
     { name: "About Us", href: "/aboutus" },
   ];
