@@ -35,9 +35,9 @@ const Community = () => {
   ];
 
   return (
-    <Box w="100%" maxW="600px" mx="auto" py="6">
+    <Box w="100%" maxW="600px" mx="auto" py="6">*/
       {/* Post Creation Area */}
-      <Box p="4" borderWidth="1px" borderRadius="lg" mb="6">
+      /*<Box p="4" borderWidth="1px" borderRadius="lg" mb="6">
         <HStack spacing="4">
           <Avatar src="https://via.placeholder.com/50" />
           <Textarea
@@ -68,7 +68,6 @@ const Community = () => {
           </Button>
         </HStack>
       </Box>
-
       {/* Post Feed */}
       <VStack spacing="6">
         {posts.map((post) => (
@@ -107,7 +106,7 @@ const Community = () => {
               </Button>
               <Button
                 variant="ghost"
-                // leftIcon={<AiOutlineShare />}
+                leftIcon={<AiOutlineShare />}
                 size="sm"
               >
                 Share
