@@ -11,8 +11,7 @@ import AboutUs from './Pages/AboutUs';
 import Scholarships from './Pages/Scholarships';
 import Login from './Pages/Login';
 import AlumniDonationForm from './Pages/Donation';
-import Community from './Pages/Community'
-import { Router } from 'lucide-react'
+import Community from './Pages/Community';
 const App = () => {
   return (
     <div>

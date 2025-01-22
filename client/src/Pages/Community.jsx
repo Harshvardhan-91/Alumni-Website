@@ -12,7 +12,7 @@ import {
   IconButton,
 } from "@chakra-ui/react";
 import { FiImage, FiVideo, FiSend } from "react-icons/fi";
-import { AiOutlineLike, AiOutlineComment, AiOutlineShare } from "react-icons/ai";
+import { AiOutlineLike, AiOutlineComment } from "react-icons/ai";
 
 const Community = () => {
   const posts = [
@@ -107,7 +107,7 @@ const Community = () => {
               </Button>
               <Button
                 variant="ghost"
-                leftIcon={<AiOutlineShare />}
+                // leftIcon={<AiOutlineShare />}
                 size="sm"
               >
                 Share
