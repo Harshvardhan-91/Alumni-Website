@@ -1,25 +1,24 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
+import bcrypt from 'bcrypt';
 
-const UserSchema = new mongoose.Schema(
-  {
-    username: {
-      type: String,
-      required: true,
-      unique: true,
-    },
-    email: {
-      type: String,
-      required: true,
-      unique: true,
-    },
-    password: {
-      type: String,
-      required: true,
-    },
+const userSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  email: { type: String, unique: true, required: true },
+  password: { type: String, required: true },
+  profile: {
+    headline: String,
+    bio: String,
+    experience: Array,
+    education: Array,
+    skills: [String],
   },
-  { timestamps: true }
-);
+  connections: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+});
 
-const User = mongoose.model("User", UserSchema);
+userSchema.pre('save', async function (next) {
+  if (!this.isModified('password')) return next();
+  this.password = await bcrypt.hash(this.password, 10);
+  next();
+});
 
-export default User;
+export default mongoose.model('User', userSchema);
