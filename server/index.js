@@ -8,6 +8,7 @@ import postRoutes from "./route/postRoutes.js";
 import connectionRoutes from "./route/connectionRoutes.js";
 import messageRoutes from "./route/messageRoutes.js";
 import donationRoutes from "./route/donationRoutes.js";
+import alumniRoutes from "./route/alumniRoutes.js";
 
 dotenv.config();
 
@@ -30,6 +31,7 @@ app.use('/users', userRoutes);
 app.use('/posts', postRoutes);
 app.use('/connections', connectionRoutes);
 app.use('/messages', messageRoutes);
+app.use('/alumni', alumniRoutes);
 
 
 // Start Server
