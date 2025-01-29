@@ -59,9 +59,9 @@ export const getUserProfile = async (req, res) => {
 };
 
 export const registerUser = async (req, res) => {
-  const { name, email, password, graduatingYear } = req.body;
-
   try {
+    const { name, email, password, graduatingYear } = req.body;
+
     // Check if user exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
@@ -80,7 +80,7 @@ export const registerUser = async (req, res) => {
       name,
       email,
       password: hashedPassword,
-      graduatingYear
+      graduatingYear: parseInt(graduatingYear)
     });
 
     await newUser.save();
@@ -108,16 +108,15 @@ export const registerUser = async (req, res) => {
     console.error("Registration error:", error);
     res.status(500).json({
       success: false,
-      message: "Error during registration",
-      error: process.env.NODE_ENV === 'development' ? error.message : undefined
+      message: error.message || "Error during registration"
     });
   }
 };
 
 export const loginUser = async (req, res) => {
-  const { email, password } = req.body;
-
   try {
+    const { email, password } = req.body;
+
     // Find user
     const user = await User.findOne({ email });
     if (!user) {

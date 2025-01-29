@@ -27,17 +27,21 @@ const UserSchema = new mongoose.Schema(
       max: [2030, 'Graduating year must be before 2030'],
     }
   },
-  { 
-    timestamps: true,
-    toJSON: { virtuals: true },
-    toObject: { virtuals: true }
-  }
+  { timestamps: true }
 );
+
+// Pre-save middleware to handle validation
+UserSchema.pre('save', function(next) {
+  if (!this.name || !this.email || !this.password || !this.graduatingYear) {
+    next(new Error('All fields are required'));
+  }
+  next();
+});
 
 // Handle duplicate key errors
 UserSchema.post('save', function(error, doc, next) {
-  if (error.name === 'MongoError' && error.code === 11000) {
-    next(new Error('Email already exists'));
+  if (error.code === 11000) {
+    next(new Error('Email is already registered'));
   } else {
     next(error);
   }

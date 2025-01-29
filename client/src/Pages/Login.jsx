@@ -27,7 +27,7 @@ const AuthPage = () => {
     e.preventDefault();
     setError('');
     setLoading(true);
-
+  
     try {
       if (isLogin) {
         const result = await login(formData.email, formData.password);
@@ -37,12 +37,12 @@ const AuthPage = () => {
           setError(result.error);
         }
       } else {
-        const result = await register(
-          formData.name,
-          formData.email,
-          formData.password,
-          parseInt(formData.graduatingYear)
-        );
+        const result = await register({
+          name: formData.name,
+          email: formData.email,
+          password: formData.password,
+          graduatingYear: parseInt(formData.graduatingYear)
+        });
         if (result.success) {
           navigate('/');
         } else {
@@ -50,7 +50,7 @@ const AuthPage = () => {
         }
       }
     } catch (err) {
-      setError('An error occurred. Please try again.');
+      setError(err.message || 'An error occurred. Please try again.');
     } finally {
       setLoading(false);
     }
