@@ -39,10 +39,10 @@ const AboutUs = () => {
       image: "https://nitj.ac.in/files/1724841196778-Picture-%20Dr%20PG.jpg"
     },
     {
-      name: "Dr Ajay Bansal",
-      role: "Registrar",
+      name: "Dr Anurag Kumari Tiwari",
+      role: "Head of alumni Relations",
       department: "NIT Jalandhar",
-      image: "https://nitj.ac.in/files/1717741345401-Passport%20Pic.jpg"
+      image: "https://nitj.ac.in/files/1724257451890-Picture1.jpg"
     },
     {
       name: "Dr Shailendra Bajpai",
