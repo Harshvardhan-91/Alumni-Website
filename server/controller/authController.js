@@ -4,21 +4,70 @@ import User from "../model/user.js";
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
+// Middleware to verify JWT token
+export const authenticateToken = (req, res, next) => {
+  try {
+    const authHeader = req.headers.authorization;
+    const token = authHeader && authHeader.split(' ')[1];
+
+    if (!token) {
+      return res.status(401).json({
+        success: false,
+        message: "Access denied. No token provided."
+      });
+    }
+
+    const decoded = jwt.verify(token, JWT_SECRET);
+    req.user = decoded;
+    next();
+  } catch (error) {
+    return res.status(401).json({
+      success: false,
+      message: "Invalid or expired token"
+    });
+  }
+};
+
+// Get user profile
+export const getUserProfile = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select('-password');
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found"
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        graduatingYear: user.graduatingYear
+      }
+    });
+  } catch (error) {
+    console.error("Error fetching user profile:", error);
+    res.status(500).json({
+      success: false,
+      message: "Error fetching profile",
+      error: process.env.NODE_ENV === 'development' ? error.message : undefined
+    });
+  }
+};
+
 export const registerUser = async (req, res) => {
-  const { username, email, password } = req.body;
+  const { name, email, password, graduatingYear } = req.body;
 
   try {
-    // Check if user exists by email or username
-    const existingUser = await User.findOne({ 
-      $or: [{ email }, { username }] 
-    });
-    
+    // Check if user exists
+    const existingUser = await User.findOne({ email });
     if (existingUser) {
-      return res.status(400).json({ 
+      return res.status(400).json({
         success: false,
-        message: existingUser.email === email ? 
-          "Email already registered" : 
-          "Username already taken"
+        message: "Email already registered"
       });
     }
 
@@ -28,17 +77,18 @@ export const registerUser = async (req, res) => {
 
     // Create new user
     const newUser = new User({
-      username,
+      name,
       email,
-      password: hashedPassword
+      password: hashedPassword,
+      graduatingYear
     });
 
     await newUser.save();
 
     // Create token
     const token = jwt.sign(
-      { id: newUser._id }, 
-      JWT_SECRET, 
+      { id: newUser._id },
+      JWT_SECRET,
       { expiresIn: '24h' }
     );
 
@@ -48,8 +98,9 @@ export const registerUser = async (req, res) => {
       token,
       user: {
         id: newUser._id,
-        username: newUser.username,
-        email: newUser.email
+        name: newUser.name,
+        email: newUser.email,
+        graduatingYear: newUser.graduatingYear
       }
     });
 
@@ -98,8 +149,9 @@ export const loginUser = async (req, res) => {
       token,
       user: {
         id: user._id,
-        username: user.username,
-        email: user.email
+        name: user.name,
+        email: user.email,
+        graduatingYear: user.graduatingYear
       }
     });
 
@@ -109,57 +161,6 @@ export const loginUser = async (req, res) => {
       success: false,
       message: "Error during login",
       error: process.env.NODE_ENV === 'development' ? error.message : undefined
-    });
-  }
-};
-
-export const getUserProfile = async (req, res) => {
-  try {
-    const user = await User.findById(req.user.id)
-      .select('-password');
-    
-    if (!user) {
-      return res.status(404).json({
-        success: false,
-        message: "User not found"
-      });
-    }
-
-    res.status(200).json({
-      success: true,
-      user
-    });
-
-  } catch (error) {
-    console.error("Profile fetch error:", error);
-    res.status(500).json({
-      success: false,
-      message: "Error fetching profile",
-      error: process.env.NODE_ENV === 'development' ? error.message : undefined
-    });
-  }
-};
-
-export const authenticateToken = (req, res, next) => {
-  try {
-    const authHeader = req.header('Authorization');
-    const token = authHeader && authHeader.split(' ')[1];
-
-    if (!token) {
-      return res.status(401).json({
-        success: false,
-        message: "Access denied. No token provided."
-      });
-    }
-
-    const decoded = jwt.verify(token, JWT_SECRET);
-    req.user = decoded;
-    next();
-    
-  } catch (error) {
-    res.status(401).json({
-      success: false,
-      message: "Invalid or expired token"
     });
   }
 };

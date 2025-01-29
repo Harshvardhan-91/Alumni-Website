@@ -10,9 +10,10 @@ const AuthPage = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [formData, setFormData] = useState({
-    username: '',
+    name: '',
     email: '',
-    password: ''
+    password: '',
+    graduatingYear: ''
   });
 
   const handleChange = (e) => {
@@ -36,7 +37,12 @@ const AuthPage = () => {
           setError(result.error);
         }
       } else {
-        const result = await register(formData.username, formData.email, formData.password);
+        const result = await register(
+          formData.name,
+          formData.email,
+          formData.password,
+          parseInt(formData.graduatingYear)
+        );
         if (result.success) {
           navigate('/');
         } else {
@@ -82,25 +88,46 @@ const AuthPage = () => {
 
           <form onSubmit={handleSubmit} className="space-y-4">
             {!isLogin && (
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Username
-                </label>
-                <div className="relative">
-                  <span className="absolute left-3 top-3 text-gray-400">
-                    <User size={18} />
-                  </span>
-                  <input
-                    type="text"
-                    name="username"
-                    value={formData.username}
-                    onChange={handleChange}
-                    className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder="Enter your username"
-                    required
-                  />
+              <>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Full Name
+                  </label>
+                  <div className="relative">
+                    <span className="absolute left-3 top-3 text-gray-400">
+                      <User size={18} />
+                    </span>
+                    <input
+                      type="text"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      placeholder="Enter your full name"
+                      required
+                    />
+                  </div>
                 </div>
-              </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Graduating Year
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="number"
+                      name="graduatingYear"
+                      value={formData.graduatingYear}
+                      onChange={handleChange}
+                      min="1950"
+                      max="2030"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      placeholder="Enter your graduating year"
+                      required
+                    />
+                  </div>
+                </div>
+              </>
             )}
 
             <div>
@@ -150,14 +177,6 @@ const AuthPage = () => {
             >
               {loading ? 'Please wait...' : (isLogin ? 'Sign In' : 'Create Account')}
             </button>
-
-            {isLogin && (
-              <p className="text-center mt-4">
-                <a href="#" className="text-sm text-blue-600 hover:text-blue-800">
-                  Forgot your password?
-                </a>
-              </p>
-            )}
           </form>
         </div>
       </div>
