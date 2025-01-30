@@ -39,28 +39,34 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const register = async (userData) => {
-    try {
-      const response = await fetch('http://localhost:5000/api/auth/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(userData),
-      });
-  
-      const data = await response.json();
-  
-      if (!response.ok) {
-        throw new Error(data.message || 'Registration failed');
-      }
-  
-      localStorage.setItem('token', data.token);
-      localStorage.setItem('user', JSON.stringify(data.user));
-      setUser(data.user);
-      return { success: true };
-    } catch (error) {
-      return { success: false, error: error.message };
+const register = async (userData) => {
+  try {
+    const response = await fetch('http://localhost:5000/api/auth/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        ...userData,
+        email: userData.email.toLowerCase() // Ensure email is lowercase
+      }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Registration failed');
     }
-  };
+
+    localStorage.setItem('token', data.token);
+    localStorage.setItem('user', JSON.stringify(data.user));
+    setUser(data.user);
+    return { success: true };
+  } catch (error) {
+    return { 
+      success: false, 
+      error: error.message || 'Registration failed. Please try again.'
+    };
+  }
+};
 
   const logout = () => {
     localStorage.removeItem('token');

@@ -61,10 +61,18 @@ export const getUserProfile = async (req, res) => {
 export const registerUser = async (req, res) => {
   try {
     const { name, email, password, graduatingYear } = req.body;
+    console.log("Registration attempt with email:", email); // Debug log
 
-    // Check if user exists
-    const existingUser = await User.findOne({ email });
+    // Convert email to lowercase for consistency
+    const normalizedEmail = email.toLowerCase();
+    console.log("Normalized email:", normalizedEmail); // Debug log
+
+    // Check for existing user first
+    const existingUser = await User.findOne({ email: normalizedEmail });
+    console.log("Existing user check result:", existingUser); // Debug log
+    
     if (existingUser) {
+      console.log("Found existing user with email:", normalizedEmail); // Debug log
       return res.status(400).json({
         success: false,
         message: "Email already registered"
@@ -78,38 +86,74 @@ export const registerUser = async (req, res) => {
     // Create new user
     const newUser = new User({
       name,
-      email,
+      email: normalizedEmail,
       password: hashedPassword,
       graduatingYear: parseInt(graduatingYear)
     });
 
-    await newUser.save();
+    try {
+      // Save user
+      const savedUser = await newUser.save();
 
-    // Create token
-    const token = jwt.sign(
-      { id: newUser._id },
-      JWT_SECRET,
-      { expiresIn: '24h' }
-    );
+      // Generate token
+      const token = jwt.sign(
+        { id: savedUser._id },
+        JWT_SECRET,
+        { expiresIn: '24h' }
+      );
 
-    res.status(201).json({
-      success: true,
-      message: "Registration successful",
-      token,
-      user: {
-        id: newUser._id,
-        name: newUser.name,
-        email: newUser.email,
-        graduatingYear: newUser.graduatingYear
+      // Return success response
+      return res.status(201).json({
+        success: true,
+        message: "Registration successful",
+        token,
+        user: {
+          id: savedUser._id,
+          name: savedUser.name,
+          email: savedUser.email,
+          graduatingYear: savedUser.graduatingYear
+        }
+      });
+    } catch (saveError) {
+      if (saveError.code === 11000) {
+        return res.status(400).json({
+          success: false,
+          message: "Email already registered"
+        });
       }
-    });
+      throw saveError; // Let it be caught by the outer catch block
+    }
 
   } catch (error) {
     console.error("Registration error:", error);
-    res.status(500).json({
+
+    // Handle validation errors
+    if (error.name === 'ValidationError') {
+      return res.status(400).json({
+        success: false,
+        message: Object.values(error.errors).map(err => err.message).join(', ')
+      });
+    }
+
+    // Handle other errors
+    return res.status(500).json({
       success: false,
-      message: error.message || "Error during registration"
+      message: "Registration failed. Please try again."
     });
+  }
+};
+
+export const checkEmail = async (req, res) => {
+  try {
+    const { email } = req.query;
+    const user = await User.findOne({ email: email.toLowerCase() });
+    res.json({
+      exists: !!user,
+      usersInSystem: await User.countDocuments(),
+      emailSearchedFor: email.toLowerCase()
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
 };
 

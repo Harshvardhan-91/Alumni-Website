@@ -10,10 +10,10 @@ const UserSchema = new mongoose.Schema(
     email: {
       type: String,
       required: [true, 'Email is required'],
-      unique: true,
+      unique: true, // Add unique constraint here
       trim: true,
       lowercase: true,
-      match: [/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/, 'Please enter a valid email'],
+      match: [/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/, 'Please enter a valid email']
     },
     password: {
       type: String,
@@ -30,23 +30,15 @@ const UserSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-// Pre-save middleware to handle validation
+// Pre-save middleware to handle email lowercase conversion
 UserSchema.pre('save', function(next) {
-  if (!this.name || !this.email || !this.password || !this.graduatingYear) {
-    next(new Error('All fields are required'));
+  if (this.email) {
+    this.email = this.email.toLowerCase();
   }
   next();
 });
 
-// Handle duplicate key errors
-UserSchema.post('save', function(error, doc, next) {
-  if (error.code === 11000) {
-    next(new Error('Email is already registered'));
-  } else {
-    next(error);
-  }
-});
-
 const User = mongoose.model("User", UserSchema);
 
+// Remove the manual index creation as we've added unique: true to the schema
 export default User;
