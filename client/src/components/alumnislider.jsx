@@ -1,10 +1,7 @@
-import { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react';
-import alumni1 from "../assets/notable1.jpeg";
-import alumni2 from "../assets/notable2.png";
-import cover from "../assets/cover2.jpg";
+import React, { useState, useEffect, useRef } from 'react';
+import { ChevronLeft, ChevronRight, Award, MapPin, Quote } from 'lucide-react';
+import alumni2 from "../assets/notable2.png"
 
-// Define alumni data directly without using an interface
 const alumni = [
   {
     name: "Inrwindeep Singh",
@@ -51,110 +48,165 @@ const alumni = [
   // Add more alumni data here
 ];
 
-export default function EnhancedAlumniSlider() {
+export default function ModernAlumniSlider() {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isHovered, setIsHovered] = useState(false);
+  const autoPlayRef = useRef(null);
+  const slideTimerRef = useRef(null);
 
   useEffect(() => {
-    let timer;
-    if (isPlaying) {
-      timer = setInterval(() => {
-        setCurrentSlide((prevSlide) => (prevSlide + 1) % alumni.length);
-      }, 5000);
+    const startAutoPlay = () => {
+      stopAutoPlay();
+      autoPlayRef.current = setInterval(() => {
+        setCurrentSlide(prev => (prev + 1) % alumni.length);
+      }, 4000); // Change slide every 4 seconds
+    };
+
+    const stopAutoPlay = () => {
+      if (autoPlayRef.current) {
+        clearInterval(autoPlayRef.current);
+      }
+    };
+
+    if (!isHovered) {
+      startAutoPlay();
     }
-    return () => clearInterval(timer);
-  }, [isPlaying]);
+
+    return () => stopAutoPlay();
+  }, [isHovered, alumni.length]);
+
+  const handleSlideChange = (index) => {
+    setCurrentSlide(index);
+    // Reset the timer when manually changing slides
+    if (slideTimerRef.current) {
+      clearTimeout(slideTimerRef.current);
+    }
+  };
 
   const nextSlide = () => {
-    setCurrentSlide((prevSlide) => (prevSlide + 1) % alumni.length);
+    handleSlideChange((currentSlide + 1) % alumni.length);
   };
 
   const prevSlide = () => {
-    setCurrentSlide((prevSlide) => (prevSlide - 1 + alumni.length) % alumni.length);
-  };
-
-  const togglePlayPause = () => {
-    setIsPlaying(!isPlaying);
+    handleSlideChange((currentSlide - 1 + alumni.length) % alumni.length);
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-12 mt-20">
-      <h2 className="text-5xl font-bold text-center mb-12 text-gray-800">Notable Alumni</h2>
-      <div className="relative overflow-hidden rounded-2xl shadow-2xl">
-        <div 
-          className="flex transition-transform duration-700 ease-in-out"
-          style={{ transform: `translateX(-${currentSlide * 100}%)` }}
-        >
-          {alumni.map((alum, index) => (
-            <div key={index} className="w-full flex-shrink-0">
-              <div className="flex flex-col md:flex-row bg-white">
-                <div className="md:w-2/5 relative">
-                  <img 
-                    src={alum.image} 
-                    alt={alum.name} 
-                    className="w-full h-96 md:h-[600px] object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-transparent" />
-                  <div className="absolute bottom-0 left-0 p-6 text-white">
-                    <h3 className="text-4xl font-bold mb-2">{alum.name}</h3>
-                    <p className="text-xl text-gray-200 mb-1">{alum.profession}</p>
-                    <p className="text-gray-300">Batch - {alum.batch}</p>
-                  </div>
-                </div>
-                <div className="md:w-3/5 p-8 bg-gray-900 text-white relative overflow-hidden">
-                  <div 
-                    className="absolute inset-0 bg-cover bg-center opacity-10"
-                    // Corrected backgroundImage usage
-                    style={{ backgroundImage: `url(${cover})` }}
-                  />
-                  <div className="relative z-10">
-                    <blockquote className="text-lg italic text-gray-200 border-l-4 border-primary pl-6 my-8">
-                      "{alum.quote}"
-                    </blockquote>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
+    <section className="w-full py-20 bg-gradient-to-b from-gray-50 to-white overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Title Section */}
+        <div className="text-center relative z-10 mb-16">
+          <span className="text-blue-600 font-semibold tracking-wider uppercase mb-4 block">
+            Meet Our Alumni
+          </span>
+          <h2 className="text-5xl font-bold text-gray-900 mb-6">
+            Notable Personalities
+          </h2>
+          <div className="w-32 h-1 mx-auto bg-gradient-to-r from-blue-600 to-purple-600 rounded-full" />
         </div>
-        <button 
-          onClick={prevSlide} 
-          className="absolute top-1/2 left-4 transform -translate-y-1/2 bg-white/30 hover:bg-white/50 rounded-full p-3 transition-colors duration-200"
+
+        {/* Slider Container */}
+        <div 
+          className="relative"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
         >
-          <ChevronLeft className="w-8 h-8 text-white" />
-        </button>
-        <button 
-          onClick={nextSlide} 
-          className="absolute top-1/2 right-4 transform -translate-y-1/2 bg-white/30 hover:bg-white/50 rounded-full p-3 transition-colors duration-200"
-        >
-          <ChevronRight className="w-8 h-8 text-white" />
-        </button>
-        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex items-center space-x-4">
-          <button
-            onClick={togglePlayPause}
-            className="bg-white/30 hover:bg-white/50 rounded-full p-2 transition-colors duration-200"
-          >
-            {isPlaying ? (
-              <Pause className="w-6 h-6 text-white" />
-            ) : (
-              <Play className="w-6 h-6 text-white" />
-            )}
-          </button>
-          <div className="flex space-x-2">
-            {alumni.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentSlide(index)}
-                className={`w-3 h-3 rounded-full transition-colors duration-200 ${
-                  index === currentSlide ? 'bg-white' : 'bg-white/50'
-                }`}
-              />
-            ))}
+          <div className="overflow-hidden rounded-xl">
+            <div 
+              className="flex transition-transform duration-700 ease-out"
+              style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+            >
+              {alumni.map((alum, index) => (
+                <div key={index} className="w-full flex-shrink-0">
+                  <div className="bg-white rounded-xl shadow-xl overflow-hidden">
+                    <div className="flex flex-col md:flex-row h-[500px]">
+                      {/* Image Side */}
+                      <div className="md:w-5/12 relative overflow-hidden">
+                        <div className="absolute inset-0 bg-gradient-to-tr from-blue-900/30 to-transparent z-10" />
+                        <img 
+                          src={alum.image} 
+                          alt={alum.name}
+                          className="absolute inset-0 w-full h-full object-cover object-center transform hover:scale-105 transition-transform duration-700"
+                        />
+                        {/* Overlay Info */}
+                        <div className="absolute bottom-0 left-0 right-0 p-8 z-20 bg-gradient-to-t from-black/80 to-transparent">
+                          <h3 className="text-3xl font-bold text-white mb-2">
+                            {alum.name}
+                          </h3>
+                          <p className="text-lg text-blue-200 mb-2">
+                            {alum.profession}
+                          </p>
+                          <div className="inline-flex items-center px-3 py-1 bg-white/10 backdrop-blur-sm rounded-full">
+                            <Award className="w-4 h-4 mr-2 text-blue-300" />
+                            <span className="text-sm text-white">Batch {alum.batch}</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Content Side */}
+                      <div className="md:w-7/12 p-8 flex flex-col">
+                        <div className="flex-grow">
+                          <Quote className="w-10 h-10 text-blue-100 mb-4" />
+                          <p className="text-gray-600 leading-relaxed line-clamp-[12]">
+                            {alum.quote}
+                          </p>
+                        </div>
+                        
+                        <div className="mt-6 pt-6 border-t border-gray-100">
+                          <div className="flex items-center justify-between text-sm text-gray-500">
+                            <div className="flex items-center">
+                              <MapPin className="w-4 h-4 mr-2 text-blue-500" />
+                              <span>Alumni Network</span>
+                            </div>
+                            {/* <div className="text-blue-600 font-medium">
+                              #{index + 1} of {alumni.length}
+                            </div> */}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Navigation Buttons */}
+          <div className="absolute top-1/2 left-4 right-4 flex justify-between items-center -translate-y-1/2">
+            <button
+              onClick={prevSlide}
+              className="p-2 rounded-full bg-white/80 hover:bg-white shadow-lg hover:shadow-xl 
+                     transition-all duration-200 transform hover:-translate-x-1"
+            >
+              <ChevronLeft className="w-6 h-6 text-gray-800" />
+            </button>
+            <button
+              onClick={nextSlide}
+              className="p-2 rounded-full bg-white/80 hover:bg-white shadow-lg hover:shadow-xl 
+                     transition-all duration-200 transform hover:translate-x-1"
+            >
+              <ChevronRight className="w-6 h-6 text-gray-800" />
+            </button>
+          </div>
+
+          {/* Slide Indicators */}
+          <div className="absolute -bottom-10 left-0 right-0">
+            <div className="flex justify-center items-center gap-3">
+              {alumni.map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => handleSlideChange(idx)}
+                  className={`transition-all duration-300 ${
+                    idx === currentSlide
+                      ? 'w-8 h-2 bg-blue-600'
+                      : 'w-2 h-2 bg-gray-300 hover:bg-gray-400'
+                  } rounded-full`}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
-
-
