@@ -7,10 +7,10 @@ import cover from "../assets/cover2.jpg";
 // Define alumni data directly without using an interface
 const alumni = [
   {
-    name: "Sadaf Chaudhary",
-    profession: "Indian Foreign Service",
-    batch: "2012-2016",
-    image: alumni2,
+    name: "Inrwindeep Singh",
+    profession: "Managing Director, Accenture",
+    batch: "1992-1996",
+    image: "https://media.licdn.com/dms/image/v2/D4D03AQHUWSgqi-wvsg/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1727902691310?e=1743638400&v=beta&t=5wtR_9JpAYfc_AcfCmyPf96Syik0N9KJLlo0g49R5zk",
     quote: "My time at the university was transformative and set the foundation for my career. Even now whenever I look back, I find myself missing the beautiful campus, the very competent faculty and host of friends I made there among seniors, batchmates, and juniors alike. Today, as I represent my country at the World stage, I continue carrying within me the values and life lessons this institute has installed in me, and I represent all of us together."
   },
   {
@@ -18,16 +18,35 @@ const alumni = [
     profession: "Indian Foreign Service",
     batch: "2016-2020",
     image: alumni2,
-    // Change 'message' to 'quote' to match the rest of the code
     quote: "I'm Prince Kumar Singh, B.Tech Chemical Engineering (Batch 2016-2020). Those four years were the best part of my life. NITJ blessed me with good friends from different parts of the country. I got good exposure and a conducive environment here. I learned so many things from friends and professors, due to which I scored the highest marks in chemical engineering optional in the history of IFS exam as per my knowledge. Apart from Academics, I was also a member of the library committee and PRAYAAS society.",
   },
   {
-    name: 'Prince Kumar Singh',
+    name: 'Sadaf Chaudhary',
     profession: "Indian Foreign Service",
-    batch: "2016-2020",
-    image: alumni2,
-    // Change 'message' to 'quote' to match the rest of the code
-    quote: "I'm Prince Kumar Singh, B.Tech Chemical Engineering (Batch 2016-2020). Those four years were the best part of my life. NITJ blessed me with good friends from different parts of the country. I got good exposure and a conducive environment here. I learned so many things from friends and professors, due to which I scored the highest marks in chemical engineering optional in the history of IFS exam as per my knowledge. Apart from Academics, I was also a member of the library committee and PRAYAAS society.",
+    batch: "2012-2016",
+    image: "https://twocircles.net/wp-content/uploads/2021/09/IMG_20210925_183247.jpg",
+    quote: "I am deeply inspired by the strides NIT Jalandhar has made in academics, research, and innovation. The legacy of excellence continues to grow, and it is heartening to see the department grooming young engineers who are ready to address real-world challenges.I extend my heartfelt thanks to the institute and the department for their enduring support and for inviting me to contribute to its legacy The world is full of opportunities waiting for those who dare to explore and innovate.",
+  },
+  {
+    name: ' Ms Jaspreet Kalra',
+    profession: "Senior Vice President at Citi,",
+    batch: "2000-2004",
+    image: "https://media.licdn.com/dms/image/v2/C4E03AQFp-9S8a3pOUw/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1538102580915?e=1743638400&v=beta&t=BQ3FfCplbD5dBt0dUTGl_1XOvHvrbw_T202ftSwAbzM",
+    quote: "I am deeply inspired by the strides NIT Jalandhar has made in academics, research, and innovation. The legacy of excellence continues to grow, and it is heartening to see the department grooming young engineers who are ready to address real-world challenges.I extend my heartfelt thanks to the institute and the department for their enduring support and for inviting me to contribute to its legacy The world is full of opportunities waiting for those who dare to explore and innovate.",
+  },
+  {
+    name: 'Mr Harry Samby',
+    profession: "CEO of Milaneil Capital, Ontario, Canada",
+    batch: "1995-1999",
+    image: "https://media.licdn.com/dms/image/v2/C5603AQEw1fEaBH673w/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1616686366764?e=1743638400&v=beta&t=ghUxS2PnLv5KoaJdconZcCwkGOIatbhfd1Ec5FDb7DY",
+    quote: "I am deeply inspired by the strides NIT Jalandhar has made in academics, research, and innovation. The legacy of excellence continues to grow, and it is heartening to see the department grooming young engineers who are ready to address real-world challenges.I extend my heartfelt thanks to the institute and the department for their enduring support and for inviting me to contribute to its legacy The world is full of opportunities waiting for those who dare to explore and innovate.",
+  },
+  {
+    name: ' Mr.Nishkam Batta',
+    profession: "Founder, HonestAI-Gen AI, ML & NLP,",
+    batch: "2005-2009",
+    image: "https://media.licdn.com/dms/image/v2/D5603AQF9burh9XwBvg/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1729976430268?e=1743638400&v=beta&t=p10uj0Xgj66ixpqkma3HyihteAO0Df7-wAT6GytXY-g",
+    quote: "I am deeply inspired by the strides NIT Jalandhar has made in academics, research, and innovation. The legacy of excellence continues to grow, and it is heartening to see the department grooming young engineers who are ready to address real-world challenges.I extend my heartfelt thanks to the institute and the department for their enduring support and for inviting me to contribute to its legacy The world is full of opportunities waiting for those who dare to explore and innovate.",
   }
   // Add more alumni data here
 ];
