@@ -39,9 +39,7 @@ const AlumniDirectory = () => {
         ...filters
       });
       
-      const baseUrl = import.meta.env.DEV 
-        ? 'http://localhost:5000' 
-        : '';
+      const baseUrl = 'https://alumni-website-backend2.onrender.com';
       
       const response = await fetch(`${baseUrl}/api/alumni?${queryParams}`, {
         method: 'GET',

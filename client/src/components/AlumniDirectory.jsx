@@ -9,7 +9,7 @@ const fetchAlumni = async (pageNum = 1) => {
       ...filters
     });
     
-    const response = await fetch(`${API_BASE_URL}/api/alumni?${queryParams}`, {
+    const response = await fetch(`https://alumni-website-backend2.onrender.com/api/alumni?${queryParams}`, {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
