@@ -3,6 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import authRoutes from './route/auth.js';
+import alumniRoutes from './route/alumniRoutes.js';  // Changed to import
 
 // Configure dotenv before any other code
 dotenv.config();
@@ -19,7 +20,15 @@ requiredEnvVars.forEach(varName => {
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: [
+    'http://localhost:5173',
+    'https://alumni-website-ten.vercel.app'
+  ],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 app.use(express.json());
 
 // MongoDB Connection with better error handling
@@ -49,6 +58,7 @@ mongoose.connection.on('disconnected', () => {
 
 // Routes
 app.use('/api/auth', authRoutes);
+app.use('/api/alumni', alumniRoutes); // Moved up with other routes
 
 // Global error handling middleware
 app.use((err, req, res, next) => {
