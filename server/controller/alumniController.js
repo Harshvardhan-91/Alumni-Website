@@ -1,62 +1,66 @@
-// controllers/AlumniController.js
-import Alumni from "../model/Alumni.js";
+import Alumni from '../model/alumniModel.js';
 
-// Get all Alumnis
-const getAllAlumnis = async (req, res) => {
+export const getAlumni = async (req, res) => {
+  console.log('Received alumni request:', req.query);
   try {
-    const Alumnis = await Alumni.find();
-    res.status(200).json(Alumnis);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 12;
+    const search = req.query.search || '';
+    const filters = {
+      batch: req.query.batch,
+      department: req.query.department,
+      country: req.query.location,
+    };
+
+    // Build query
+    let query = {};
+    
+    // Add search conditions
+    if (search) {
+      query.$or = [
+        { name: { $regex: search, $options: 'i' } },
+        { company: { $regex: search, $options: 'i' } },
+        { designation: { $regex: search, $options: 'i' } }
+      ];
+    }
+
+    // Add filters (only if they're not 'all' or 'None')
+    Object.entries(filters).forEach(([key, value]) => {
+      if (value && value !== 'all' && value !== 'None') {
+        if (key === 'location') {
+          query['country'] = value;
+        } else {
+          query[key] = value;
+        }
+      }
+    });
+
+    console.log('MongoDB Query:', JSON.stringify(query, null, 2));
+
+    // Execute query with debugging logs
+    const total = await Alumni.countDocuments(query);
+    console.log('Total matching documents:', total);
+
+    const alumni = await Alumni.find(query)
+      .skip((page - 1) * limit)
+      .limit(limit)
+      .sort({ batch: -1 })
+      .lean();
+
+    console.log(`Found ${alumni.length} alumni records for page ${page}`);
+
+    res.json({
+      success: true,
+      alumni,
+      totalPages: Math.ceil(total / limit),
+      currentPage: page,
+      total
+    });
+  } catch (error) {
+    console.error('Error in getAlumni:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: error.message 
+    });
   }
 };
-
-// Get a Alumni by ID
-const getAlumniById = async (req, res) => {
-  try {
-    const Alumni = await Alumni.findById(req.params.id);
-    if (!Alumni) return res.status(404).json({ message: "Alumni not found" });
-    res.status(200).json(Alumni);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-};
-
-// Create a new Alumni
-const createAlumni = async (req, res) => {
-  try {
-    const Alumni = new Alumni(req.body);
-    const savedAlumni = await Alumni.save();
-    res.status(201).json(savedAlumni);
-  } catch (err) {
-    res.status(400).json({ error: err.message });
-  }
-};
-
-// Update a Alumni
-const updateAlumni = async (req, res) => {
-  try {
-    const updatedAlumni = await Alumni.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      { new: true }
-    );
-    if (!updatedAlumni) return res.status(404).json({ message: "Alumni not found" });
-    res.status(200).json(updatedAlumni);
-  } catch (err) {
-    res.status(400).json({ error: err.message });
-  }
-};
-
-// Delete a Alumni
-const deleteAlumni = async (req, res) => {
-  try {
-    const deletedAlumni = await Alumni.findByIdAndDelete(req.params.id);
-    if (!deletedAlumni) return res.status(404).json({ message: "Alumni not found" });
-    res.status(200).json({ message: "Alumni deleted successfully" });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-};
-
-export { getAllAlumnis, getAlumniById, createAlumni, updateAlumni, deleteAlumni };
