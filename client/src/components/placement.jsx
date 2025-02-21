@@ -11,7 +11,7 @@ const stats = [
     color: 'bg-gradient-to-br from-blue-500 to-blue-600',
     textColor: 'text-white',
     detail: 'Out of 100 eligible students',
-    chartData: [85, 88, 92, 95] // Last 4 years
+    chartData: [74, 89, 90.32, 100] // Last 4 years
   },
   { 
     name: 'Average Package', 
@@ -21,7 +21,7 @@ const stats = [
     color: 'bg-gradient-to-br from-green-500 to-green-600',
     textColor: 'text-white',
     detail: '15% increase from last year',
-    chartData: [700000, 780000, 850000, 900000]
+    chartData: [600000, 776000, 745000, 726000]
   },
   { 
     name: 'Highest Package', 
@@ -31,7 +31,7 @@ const stats = [
     color: 'bg-gradient-to-br from-purple-500 to-purple-600',
     textColor: 'text-white',
     detail: 'Offered by a leading tech giant',
-    chartData: [120000, 130000, 140000, 150000]
+    chartData: [1100000, 2200000, 1400000, 1515000]
   },
   { 
     name: 'Companies Visited', 
@@ -40,7 +40,7 @@ const stats = [
     color: 'bg-gradient-to-br from-yellow-500 to-yellow-600',
     textColor: 'text-white',
     detail: 'Including Fortune 500 companies',
-    chartData: [35, 40, 45, 50]
+    chartData: [26, 29, 28, 50]
   },
 ]
 
@@ -48,27 +48,32 @@ const departmentInfo = [
   {
     title: "State-of-the-art Facilities",
     description: "Our laboratories are equipped with the latest technology, including AI-powered workstations, VR/AR development kits, and high-performance computing clusters.",
-    icon: Building2
+    icon: Building2,
+    link:"https://departments.nitj.ac.in/dept/ch/DepartmentLab"
   },
   {
     title: "Expert Faculty",
     description: "Our faculty members have an average of 15+ years of industry experience and have published in top-tier academic journals.",
-    icon: GraduationCap
+    icon: GraduationCap,
+    link:"https://departments.nitj.ac.in/dept/ch/Faculty"
   },
   {
     title: "Industry Collaborations",
     description: "We have active partnerships with companies like Google, Microsoft, and Amazon for internships, projects, and research opportunities.",
-    icon: Briefcase
+    icon: Briefcase,
+    link:"#"
   },
   {
     title: "Cutting-edge Curriculum",
     description: "Our curriculum is regularly updated to include the latest technologies and methodologies, ensuring our students are always industry-ready.",
-    icon: BookOpen
+    icon: BookOpen,
+    link:"https://departments.nitj.ac.in/dept/ch/Syllabus"
   },
   {
     title: "Research Excellence",
     description: "Students can participate in groundbreaking research in fields like Quantum Computing, Blockchain, and Artificial Intelligence.",
-    icon: Award
+    icon: Award,
+    link:"#"
   },
 ]
 
@@ -227,7 +232,9 @@ export default function EnhancedDepartmentStats() {
                   </div>
                   <div className="flex-grow">
                     <div className="flex justify-between items-center">
-                      <span className="font-semibold text-gray-900">{info.title}</span>
+                      <a href={`${info.link}`}>
+                        <span className="font-semibold text-gray-900">{info.title}</span>
+                      </a>
                       {expandedInfo === index ? 
                         <ChevronUp className="h-5 w-5 text-gray-500" /> : 
                         <ChevronDown className="h-5 w-5 text-gray-500" />

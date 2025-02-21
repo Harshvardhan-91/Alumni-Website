@@ -10,6 +10,7 @@ const AuthPage = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [formData, setFormData] = useState({
+    username: '',
     name: '',
     email: '',
     password: '',
@@ -30,7 +31,7 @@ const AuthPage = () => {
   
     try {
       if (isLogin) {
-        const result = await login(formData.email, formData.password);
+        const result = await login(formData.username, formData.password);
         if (result.success) {
           navigate('/');
         } else {
@@ -38,6 +39,7 @@ const AuthPage = () => {
         }
       } else {
         const result = await register({
+          username: formData.username,
           name: formData.name,
           email: formData.email,
           password: formData.password,
@@ -89,6 +91,26 @@ const AuthPage = () => {
           <form onSubmit={handleSubmit} className="space-y-4">
             {!isLogin && (
               <>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Username
+                  </label>
+                  <div className="relative">
+                    <span className="absolute left-3 top-3 text-gray-400">
+                      <User size={18} />
+                    </span>
+                    <input
+                      type="text"
+                      name="name"
+                      value={formData.username}
+                      onChange={handleChange}
+                      className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      placeholder="Enter your full name"
+                      required
+                    />
+                  </div>
+                </div>
+
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
                     Full Name

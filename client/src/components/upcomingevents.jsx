@@ -37,11 +37,11 @@ const useScrollReveal = (options = {}) => {
 const events = [
   {
     id: 1,
-    date: "2024-06-15",
-    time: "10:00 AM - 4:00 PM",
-    title: "Summer Tech Conference",
+    date: "2025-02-22",
+    time: "9:00 PM - 10:00 PM",
+    title: "Alumni Interaction Session",
     description: "Annual conference showcasing the latest in technology trends and innovations.",
-    location: "Main Auditorium",
+    location: "Online Event",
     attendees: "250+",
     imageUrl: event1,
     tags: ['Technology', 'Innovation']

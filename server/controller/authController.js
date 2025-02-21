@@ -1,6 +1,9 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
 import User from "../model/user.js";
+
+dotenv.config();
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
@@ -60,20 +63,20 @@ export const getUserProfile = async (req, res) => {
 
 export const registerUser = async (req, res) => {
   try {
-    const { name, email, password, graduatingYear } = req.body;
-    console.log("Registration attempt with email:", email); // Debug log
+    const { name, email, password, graduatingYear, username } = req.body;
+    console.log("Registration attempt with email:", email); 
 
     // Convert email to lowercase for consistency
     const normalizedEmail = email.toLowerCase();
-    console.log("Normalized email:", normalizedEmail); // Debug log
+    console.log("Normalized email:", normalizedEmail); 
 
     // Check for existing user first
     const existingUser = await User.findOne({ email: normalizedEmail });
-    console.log("Existing user check result:", existingUser); // Debug log
+    console.log("Existing user check result:", existingUser); 
     
     if (existingUser) {
-      console.log("Found existing user with email:", normalizedEmail); // Debug log
-      return res.status(400).json({
+      console.log("Found existing user with email:", normalizedEmail); 
+      return res.status(200).json({
         success: false,
         message: "Email already registered"
       });
@@ -85,11 +88,12 @@ export const registerUser = async (req, res) => {
 
     // Create new user
     const newUser = new User({
-      name,
+      name: name,
       email: normalizedEmail,
       password: hashedPassword,
-      graduatingYear: parseInt(graduatingYear)
-    });
+      graduatingYear: parseInt(graduatingYear),
+      username: username || email.split('@')[0] // Generate username if missing
+  });
 
     try {
       // Save user
@@ -110,20 +114,22 @@ export const registerUser = async (req, res) => {
         user: {
           id: savedUser._id,
           name: savedUser.name,
+          username: savedUser.username,
           email: savedUser.email,
+          password: savedUser.password,
           graduatingYear: savedUser.graduatingYear
         }
       });
     } catch (saveError) {
       if (saveError.code === 11000) {
+        console.log(saveError);
         return res.status(400).json({
           success: false,
-          message: "Email already registered"
+          message: "Server Error occured"
         });
       }
-      throw saveError; // Let it be caught by the outer catch block
+      throw saveError;
     }
-
   } catch (error) {
     console.error("Registration error:", error);
 
