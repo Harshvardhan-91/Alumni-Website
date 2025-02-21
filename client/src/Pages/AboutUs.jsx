@@ -55,10 +55,10 @@ const AboutUs = () => {
       image: "https://nitj.ac.in/files/1724257451890-Picture1.jpg"
     },
     {
-      name: "Dr Shailendra Bajpai",
-      role: "Chief Warden",
+      name: "Dr Sangeeta Garg",
+      role: "Professor",
       department: "NIT Jalandhar",
-      image: "https://nitj.ac.in/files/1708596109985-Self%20pic.jpg"
+      image: "https://res.cloudinary.com/deysmiqsk/image/upload/v1740160782/dvov0qjorisaud2tzvnn.jpg"
     }
   ];
 

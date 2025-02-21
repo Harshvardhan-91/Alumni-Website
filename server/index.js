@@ -3,7 +3,10 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import authRoutes from './route/auth.js';
-import alumniRoutes from './route/alumniRoutes.js';  // Changed to import
+import alumniRoutes from './route/alumniRoutes.js';
+import postRoutes from './route/postRoutes.js';
+import messageRoutes from './route/messageRoutes.js';
+import connectionRoutes from './route/connectionRoutes.js';
 
 // Configure dotenv before any other code
 dotenv.config();
@@ -58,7 +61,10 @@ mongoose.connection.on('disconnected', () => {
 
 // Routes
 app.use('/api/auth', authRoutes);
-app.use('/api/alumni', alumniRoutes); // Moved up with other routes
+app.use('/api/alumni', alumniRoutes);
+app.use('/api/posts', postRoutes);
+app.use('/api/messages', messageRoutes);
+app.use('/api/connections', connectionRoutes);
 
 // Global error handling middleware
 app.use((err, req, res, next) => {
