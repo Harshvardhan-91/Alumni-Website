@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Users, GraduationCap, Briefcase, TrendingUp, ChevronDown, ChevronUp, Building2, Award, BookOpen } from 'lucide-react'
-
+import { Link } from 'react-router-dom';
 const stats = [
   { 
     name: 'Students Placed', 
@@ -227,7 +227,9 @@ export default function EnhancedDepartmentStats() {
                   </div>
                   <div className="flex-grow">
                     <div className="flex justify-between items-center">
+                    <Link to={info.link}>
                       <span className="font-semibold text-gray-900">{info.title}</span>
+                    </Link>
                       {expandedInfo === index ? 
                         <ChevronUp className="h-5 w-5 text-gray-500" /> : 
                         <ChevronDown className="h-5 w-5 text-gray-500" />
