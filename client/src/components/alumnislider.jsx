@@ -43,7 +43,7 @@ const alumni = [
     name: 'Mr.Nishkam Batta',
     profession: "Founder, HonestAI-Gen AI, ML & NLP,",
     batch: "2005-2009",
-    image: "https://media.licdn.com/dms/image/v2/D5603AQF9burh9XwBvg/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1729976430268?e=1743638400&v=beta&t=p10uj0Xgj66ixpqkma3HyihteAO0Df7-wAT6GytXY-g",
+    image: "https://media.licdn.com/dms/image/v2/D5603AQE-Yf5sSNtUgw/profile-displayphoto-shrink_800_800/B56ZTTKg4eGUAg-/0/1738709536884?e=1745452800&v=beta&t=Yc00NtGPxhhwD3F0LQwr64GrVfDHqHWugfpVbPafX2c",
     quote: "I am deeply inspired by the strides NIT Jalandhar has made in academics, research, and innovation. The legacy of excellence continues to grow, and it is heartening to see the department grooming young engineers who are ready to address real-world challenges.I extend my heartfelt thanks to the institute and the department for their enduring support and for inviting me to contribute to its legacy The world is full of opportunities waiting for those who dare to explore and innovate.",
   }
 ];
