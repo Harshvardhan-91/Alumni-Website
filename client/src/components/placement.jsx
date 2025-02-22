@@ -48,27 +48,32 @@ const departmentInfo = [
   {
     title: "State-of-the-art Facilities",
     description: "Our laboratories are equipped with the latest technology, including AI-powered workstations, VR/AR development kits, and high-performance computing clusters.",
-    icon: Building2
+    icon: Building2,
+    link:"https://departments.nitj.ac.in/dept/ch/DepartmentLab",
   },
   {
     title: "Expert Faculty",
     description: "Our faculty members have an average of 15+ years of industry experience and have published in top-tier academic journals.",
-    icon: GraduationCap
+    icon: GraduationCap,
+    link:"https://departments.nitj.ac.in/dept/ch/Faculty",
   },
   {
     title: "Industry Collaborations",
     description: "We have active partnerships with companies like Google, Microsoft, and Amazon for internships, projects, and research opportunities.",
-    icon: Briefcase
+    icon: Briefcase,
+    link:"#",
   },
   {
     title: "Cutting-edge Curriculum",
     description: "Our curriculum is regularly updated to include the latest technologies and methodologies, ensuring our students are always industry-ready.",
-    icon: BookOpen
+    icon: BookOpen,
+    link:"https://departments.nitj.ac.in/dept/ch/Syllabus",
   },
   {
     title: "Research Excellence",
     description: "Students can participate in groundbreaking research in fields like Quantum Computing, Blockchain, and Artificial Intelligence.",
-    icon: Award
+    icon: Award,
+    link:"#"
   },
 ]
 
