@@ -6,41 +6,41 @@ import { Users, GraduationCap, Briefcase, TrendingUp, ChevronDown, ChevronUp, Bu
 const stats = [
   { 
     name: 'Students Placed', 
-    value: 95, 
+    value: 100, // Using 100% for 2024 as the highest value, but you can adjust based on your needs
     icon: Users, 
     color: 'bg-gradient-to-br from-blue-500 to-blue-600',
     textColor: 'text-white',
     detail: 'Out of 100 eligible students',
-    chartData: [74, 89, 90.32, 100] // Last 4 years
+    chartData: [74, 89, 90.32, 100] // Last 4 years in percentages
   },
   { 
     name: 'Average Package', 
-    value: 900000, 
-    prefix: '$', 
+    value: 726000, // 7.26 lakhs = 726,000
+    prefix: '₹',
     icon: Briefcase, 
     color: 'bg-gradient-to-br from-green-500 to-green-600',
     textColor: 'text-white',
     detail: '15% increase from last year',
-    chartData: [600000, 776000, 745000, 726000]
+    chartData: [600000, 776000, 715000, 726000] // Last 4 years in rupees (lakhs * 100,000)
   },
   { 
     name: 'Highest Package', 
-    value: 150000, 
-    prefix: '$', 
+    value: 1518000, // 15.18 lakhs = 1,518,000
+    prefix: '₹',
     icon: TrendingUp, 
     color: 'bg-gradient-to-br from-purple-500 to-purple-600',
     textColor: 'text-white',
     detail: 'Offered by a leading tech giant',
-    chartData: [1100000, 2200000, 1400000, 1515000]
+    chartData: [1100000, 2200000, 1400000, 1518000] // Last 4 years in rupees (lakhs * 100,000)
   },
   { 
     name: 'Companies Visited', 
-    value: 50, 
+    value: 30, 
     icon: Building2, 
     color: 'bg-gradient-to-br from-yellow-500 to-yellow-600',
     textColor: 'text-white',
     detail: 'Including Fortune 500 companies',
-    chartData: [26, 29, 28, 50]
+    chartData: [26, 29, 28, 30] // Last 4 years
   },
 ]
 
@@ -48,32 +48,27 @@ const departmentInfo = [
   {
     title: "State-of-the-art Facilities",
     description: "Our laboratories are equipped with the latest technology, including AI-powered workstations, VR/AR development kits, and high-performance computing clusters.",
-    icon: Building2,
-    link:"https://departments.nitj.ac.in/dept/ch/DepartmentLab"
+    icon: Building2
   },
   {
     title: "Expert Faculty",
     description: "Our faculty members have an average of 15+ years of industry experience and have published in top-tier academic journals.",
-    icon: GraduationCap,
-    link:"https://departments.nitj.ac.in/dept/ch/Faculty"
+    icon: GraduationCap
   },
   {
     title: "Industry Collaborations",
     description: "We have active partnerships with companies like Google, Microsoft, and Amazon for internships, projects, and research opportunities.",
-    icon: Briefcase,
-    link:"#"
+    icon: Briefcase
   },
   {
     title: "Cutting-edge Curriculum",
     description: "Our curriculum is regularly updated to include the latest technologies and methodologies, ensuring our students are always industry-ready.",
-    icon: BookOpen,
-    link:"https://departments.nitj.ac.in/dept/ch/Syllabus"
+    icon: BookOpen
   },
   {
     title: "Research Excellence",
     description: "Students can participate in groundbreaking research in fields like Quantum Computing, Blockchain, and Artificial Intelligence.",
-    icon: Award,
-    link:"#"
+    icon: Award
   },
 ]
 
@@ -232,9 +227,7 @@ export default function EnhancedDepartmentStats() {
                   </div>
                   <div className="flex-grow">
                     <div className="flex justify-between items-center">
-                      <a href={`${info.link}`}>
-                        <span className="font-semibold text-gray-900">{info.title}</span>
-                      </a>
+                      <span className="font-semibold text-gray-900">{info.title}</span>
                       {expandedInfo === index ? 
                         <ChevronUp className="h-5 w-5 text-gray-500" /> : 
                         <ChevronDown className="h-5 w-5 text-gray-500" />
