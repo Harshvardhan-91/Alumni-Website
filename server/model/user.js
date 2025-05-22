@@ -21,7 +21,7 @@ const UserSchema = new mongoose.Schema(
     email: {
       type: String,
       required: [true, 'Email is required'],
-      unique: true, // Add unique constraint here
+      unique: true,
       trim: true,
       lowercase: true,
       match: [/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/, 'Please enter a valid email']
@@ -36,6 +36,23 @@ const UserSchema = new mongoose.Schema(
       required: [true, 'Graduating year is required'],
       min: [1950, 'Graduating year must be after 1950'],
       max: [2030, 'Graduating year must be before 2030'],
+    },
+    role: {
+      type: String,
+      enum: ['user', 'alumni', 'admin'],
+      default: 'user'
+    },
+    isVerified: {
+      type: Boolean,
+      default: false
+    },
+    department: {
+      type: String,
+      required: false
+    },
+    profileCompleted: {
+      type: Boolean,
+      default: false
     }
   },
   { timestamps: true }

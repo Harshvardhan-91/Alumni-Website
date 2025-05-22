@@ -2,13 +2,15 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import User from "../model/user.js";
+import PendingAlumni from "../model/pendingAlumniModel.js";
+import { uploadImageToCloudinary } from "../utils/cloudinary.js";
 
 dotenv.config();
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
 // Middleware to verify JWT token
-export const authenticateToken = (req, res, next) => {
+export const authenticateToken = async (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;
     const token = authHeader && authHeader.split(' ')[1];
@@ -21,9 +23,20 @@ export const authenticateToken = (req, res, next) => {
     }
 
     const decoded = jwt.verify(token, JWT_SECRET);
-    req.user = decoded;
+    
+    // Find the user and attach to request
+    const user = await User.findById(decoded.id);
+    if (!user) {
+      return res.status(401).json({
+        success: false,
+        message: "User not found"
+      });
+    }
+    
+    req.user = user;
     next();
   } catch (error) {
+    console.error("Auth token error:", error);
     return res.status(401).json({
       success: false,
       message: "Invalid or expired token"
@@ -63,8 +76,22 @@ export const getUserProfile = async (req, res) => {
 
 export const registerUser = async (req, res) => {
   try {
-    const { name, email, password, graduatingYear, username } = req.body;
+    const { 
+      name, 
+      email, 
+      password, 
+      graduatingYear, 
+      username,
+      // Additional alumni profile fields
+      department,
+      company,
+      designation,
+      linkedin,
+      country
+    } = req.body;
+    
     console.log("Registration attempt with email:", email); 
+    console.log("Has profile image:", req.file ? "Yes" : "No");
 
     // Convert email to lowercase for consistency
     const normalizedEmail = email.toLowerCase();
@@ -92,21 +119,61 @@ export const registerUser = async (req, res) => {
       email: normalizedEmail,
       password: hashedPassword,
       graduatingYear: parseInt(graduatingYear),
-      username: username || email.split('@')[0] // Generate username if missing
-  });
+      username: username || email.split('@')[0], // Generate username if missing
+      department: department || '',
+      profileCompleted: department && company && designation ? true : false
+    });
 
     try {
       // Save user
       const savedUser = await newUser.save();
+      
+      // Handle profile image upload if it exists
+      let imageUrl = '';
+      if (req.file) {
+        try {
+          const result = await uploadImageToCloudinary(req.file.path);
+          imageUrl = result.secure_url;
+          console.log("Uploaded profile image to Cloudinary:", imageUrl);
+        } catch (imageError) {
+          console.error("Error uploading profile image:", imageError);
+          // Continue without image if upload fails
+        }
+      }
+      
+      // If alumni profile data is provided, create a pending alumni request
+      if (department && company && designation) {
+        try {
+          // Create pending alumni record
+          const pendingAlumni = new PendingAlumni({
+            userId: savedUser._id,
+            name,
+            email: normalizedEmail,
+            batch: graduatingYear.toString(),
+            department,
+            degree: 'B.Tech', // Default value, can be updated later
+            company,
+            designation,
+            linkedin: linkedin || '',
+            country: country || 'INDIA',
+            phone: '',
+            image: imageUrl // Add the Cloudinary image URL
+          });
+          
+          await pendingAlumni.save();
+          console.log("Created pending alumni profile during registration");
+        } catch (profileError) {
+          console.error("Error creating pending alumni profile:", profileError);
+          // We don't want to fail registration if this fails
+        }
+      }
 
       // Generate token
       const token = jwt.sign(
         { id: savedUser._id },
         JWT_SECRET,
         { expiresIn: '24h' }
-      );
-
-      // Return success response
+      );      // Return success response
       return res.status(201).json({
         success: true,
         message: "Registration successful",
@@ -116,8 +183,11 @@ export const registerUser = async (req, res) => {
           name: savedUser.name,
           username: savedUser.username,
           email: savedUser.email,
-          password: savedUser.password,
-          graduatingYear: savedUser.graduatingYear
+          graduatingYear: savedUser.graduatingYear,
+          department: savedUser.department,
+          profileCompleted: savedUser.profileCompleted,
+          role: savedUser.role,
+          isVerified: savedUser.isVerified
         }
       });
     } catch (saveError) {

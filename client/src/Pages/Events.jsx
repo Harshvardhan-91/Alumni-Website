@@ -5,6 +5,8 @@ import {
   Calendar, MapPin, Clock, Users, ArrowRight, 
   Filter, Search, ChevronDown 
 } from 'lucide-react';
+import { NavbarComponent } from '../components/navbar'
+import Footer from '../components/footer'
 
 // Custom hook for scroll reveal
 const useScrollReveal = (options = {}) => {
@@ -173,6 +175,8 @@ export default function EnhancedEvents() {
   const [brandsRef, isBrandsVisible] = useScrollReveal();
 
   return (
+    <>
+    <NavbarComponent />
     <div className="bg-gray-50 min-h-screen">
       {/* Hero Section */}
       <section 
@@ -326,5 +330,7 @@ export default function EnhancedEvents() {
         </div>
       </section>
     </div>
+    <Footer />
+    </>
   );
 }

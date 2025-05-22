@@ -25,17 +25,32 @@ export function NavbarComponent() {
     navigate('/');
     setIsDropdownOpen(false);
   };
+  // Get dynamic nav items based on user role
+  const getNavItems = () => {
+    const baseItems = [
+      { name: "Home", href: "/" },
+      { name: "Alumni Directory", href: "/alumni-directory" },
+      { name: "Events", href: "/events" },
+      { name: "Scholarships", href: "/scholarships" },
+      { name: "Give back", href: "/donation" },
+      { name: "Posts", href: "/posts" },
+      { name: "About Us", href: "/aboutus" },
+    ];
+    
+    // Add Community link for all logged in users
+    if (user) {
+      baseItems.push({ name: "Community", href: "/community" });
+    }
 
-  const navItems = [
-    { name: "Home", href: "/" },
-    { name: "Alumni Directory", href: "/alumni-directory" },
-    { name: "Events", href: "/events" },
-    { name: "Scholarships", href: "/scholarships" },
-    { name: "Give back", href: "/donation" },
-    { name: "Posts", href: "/posts" },
-    { name: "Community", href: "/community" },
-    { name: "About Us", href: "/aboutus" },
-  ];
+    // Add admin dashboard link for admin users
+    if (user && user.role === 'admin') {
+      baseItems.push({ name: "Admin Dashboard", href: "/admin-dashboard" });
+    }
+    
+    return baseItems;
+  };
+
+  const navItems = getNavItems();
 
   return (
     <>
@@ -89,16 +104,28 @@ export function NavbarComponent() {
                     <ChevronDown className={`w-4 h-4 transition-transform duration-200 
                       ${isDropdownOpen ? 'rotate-180' : ''}`} />
                   </button>
-                  
-                  {isDropdownOpen && (
+                    {isDropdownOpen && (
                     <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-1 border border-gray-100">
-                      <Link
-                        to="/profile"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-blue-600"
-                        onClick={() => setIsDropdownOpen(false)}
-                      >
-                        Profile
-                      </Link>
+                      {user && !user.isVerified && (
+                        <Link
+                          to="/profile-submission"
+                          className="block px-4 py-2 text-sm text-blue-600 hover:bg-blue-50"
+                          onClick={() => setIsDropdownOpen(false)}
+                        >
+                          Complete Alumni Profile
+                        </Link>
+                      )}
+                      
+                      {user && user.role === 'admin' && (
+                        <Link
+                          to="/admin-dashboard"
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-blue-600"
+                          onClick={() => setIsDropdownOpen(false)}
+                        >
+                          Admin Dashboard
+                        </Link>
+                      )}
+                      
                       <button
                         onClick={handleLogout}
                         className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-red-600"

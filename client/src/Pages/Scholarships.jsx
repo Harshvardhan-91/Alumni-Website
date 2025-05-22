@@ -1,7 +1,8 @@
 import React from 'react';
 import { Award, BookOpen, Calculator, Calendar, CheckCircle, Gift, GraduationCap, HelpCircle } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
-
+import { NavbarComponent } from '../components/navbar'
+import Footer from '../components/footer'
 const Scholarships = () => {
   const featuredScholarships = [
     {
@@ -62,6 +63,8 @@ const Scholarships = () => {
   ];
 
   return (
+    <>
+      <NavbarComponent />
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
       <div className="relative h-[450px]">
@@ -222,6 +225,8 @@ const Scholarships = () => {
         </div>
       </div>
     </div>
+      <Footer />
+    </>
   );
 };
 

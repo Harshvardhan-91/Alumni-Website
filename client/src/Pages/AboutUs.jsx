@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { BookOpen, Users, Award, Globe, Trophy, Briefcase, GraduationCap, Building2, ArrowUp } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
-
+import { NavbarComponent } from '../components/navbar'
+import Footer from '../components/footer'
 const AboutUs = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [visibleSections, setVisibleSections] = useState(new Set());
@@ -130,6 +131,8 @@ const AboutUs = () => {
   };
 
   return (
+    <>
+    <NavbarComponent/>
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
       <section className="relative bg-gradient-to-r from-blue-800 to-blue-600 text-white overflow-hidden">
@@ -468,6 +471,8 @@ const AboutUs = () => {
         }
       `}</style>
     </div>
+    <Footer/>
+    </>
   );
 };
 

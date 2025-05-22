@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Check, Info, Heart, GraduationCap, Building2, Users, CircleDollarSign, ArrowRight } from 'lucide-react';
-
+import { NavbarComponent } from '../components/navbar'
+import Footer from '../components/footer'
 const AlumniDonationForm = () => {
   const [formData, setFormData] = useState({
     email: '',
@@ -239,6 +240,8 @@ const AlumniDonationForm = () => {
   );
 
   return (
+    <>
+    <NavbarComponent />
     <div className="max-w-5xl mx-auto p-6">
       <div className="mb-12 text-center">
         <div className="flex justify-center mb-4">
@@ -292,6 +295,8 @@ const AlumniDonationForm = () => {
         {step === 3 && renderStep3()}
       </div>
     </div>
+    <Footer />
+    </>
   );
 };
 

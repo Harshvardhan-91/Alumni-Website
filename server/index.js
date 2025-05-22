@@ -2,11 +2,16 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import authRoutes from './route/auth.js';
 import alumniRoutes from './route/alumniRoutes.js';
 import postRoutes from './route/postRoutes.js';
 import messageRoutes from './route/messageRoutes.js';
 import connectionRoutes from './route/connectionRoutes.js';
+import pendingAlumniRoutes from './route/pendingAlumniRoutes.js';
+import adminRoutes from './route/adminRoutes.js';
 
 // Configure dotenv before any other code
 dotenv.config();
@@ -59,12 +64,23 @@ mongoose.connection.on('disconnected', () => {
   console.log('MongoDB disconnected');
 });
 
+// Create uploads directory if it doesn't exist
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const uploadDir = path.join(__dirname, 'uploads');
+
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir, { recursive: true });
+}
+
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/alumni', alumniRoutes);
 app.use('/api/posts', postRoutes);
 app.use('/api/messages', messageRoutes);
 app.use('/api/connections', connectionRoutes);
+app.use('/api/pending-alumni', pendingAlumniRoutes);
+app.use('/api/admin', adminRoutes);
 
 // Global error handling middleware
 app.use((err, req, res, next) => {

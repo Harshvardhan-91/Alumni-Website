@@ -5,19 +5,19 @@ import Events from './Pages/Events'
 import AlumniDirectory from './Pages/AlumniDirectory'
 import Posts from './Pages/Posts'
 import Scholarship from './Pages/Scholarships'
-import { NavbarComponent } from './components/navbar'
-import Footer from './components/footer'
 import AboutUs from './Pages/AboutUs'
 import Scholarships from './Pages/Scholarships'
 import Login from './Pages/Login'
 import AlumniDonationForm from './Pages/Donation'
 import Community from './Pages/Community'
+import ProfileSubmission from './Pages/ProfileSubmission'
+import AdminDashboard from './Pages/AdminDashboard'
+import AdminLogin from './Pages/AdminLogin'
 import ProtectedRoute from './components/ProtectedRoute'
 
 const App = () => {
   return (
-    <div>
-      <NavbarComponent/>
+    <div>    
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/events" element={<Events />} />
@@ -28,7 +28,9 @@ const App = () => {
         <Route path="/scholarships" element={<Scholarships />} />
         <Route path="/login" element={<Login/>} />
         <Route path="/donation" element={<AlumniDonationForm/>} />
-        {/* Protected Route */}
+        <Route path="/admin-login" element={<AdminLogin />} />
+        
+        {/* Protected Routes */}
         <Route 
           path="/community" 
           element={
@@ -37,8 +39,23 @@ const App = () => {
             </ProtectedRoute>
           } 
         />
+        <Route 
+          path="/profile-submission" 
+          element={
+            <ProtectedRoute>
+              <ProfileSubmission/>
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/admin-dashboard" 
+          element={
+            <ProtectedRoute>
+              <AdminDashboard/>
+            </ProtectedRoute>
+          } 
+        />
       </Routes>
-      <Footer/>
     </div>
   )
 }

@@ -5,10 +5,12 @@ import UpcomingEvents from '../components/upcomingevents';
 import Placement from "../components/placement";
 import DeanMessage from '../components/dean';
 import AlumniEngagement from '../components/engagement'; 
-
+import { NavbarComponent } from '../components/navbar'
+import Footer from '../components/footer'
 const Home = () => {
   return (
     <>
+      <NavbarComponent/>
       <div className='w-[90vw] m-auto'>
         <HeroSection/>
         <EnhancedAlumniSlider/>
@@ -17,6 +19,7 @@ const Home = () => {
         <DeanMessage/>
         <AlumniEngagement/>
       </div>
+      <Footer/>
       </>
   )
 }
